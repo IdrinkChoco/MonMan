@@ -1,9 +1,12 @@
-import { supabase } from '../config/supabase.js';
+import { supabase } from "../config/supabase.js";
 
 export const authService = {
   // Ambil Sesi Login Saat Ini
   async getSession() {
-    const { data: { session }, error } = await supabase.auth.getSession();
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
     if (error) throw error;
     return session;
   },
@@ -17,7 +20,10 @@ export const authService = {
 
   // Login Akun
   async signIn(email, password) {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
     if (error) throw error;
     return data;
   },
@@ -33,5 +39,5 @@ export const authService = {
     return supabase.auth.onAuthStateChange((_event, session) => {
       callback(session);
     });
-  }
+  },
 };
